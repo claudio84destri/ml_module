@@ -32,6 +32,18 @@ def dropColumns(dataframe, varstokeep=""):
 #=============================================================================#
 
 #-----------------------------------------------------------------------------#
+# Data Manipulation Class
+class dataManipulate:
+    def __init__(self, aggregateRecords=0, inputData=[]):
+        self.aggregaterecords = aggregateRecords
+        self.inputdata = inputData
+    def __del__(self):
+        print("dataManipulate Object Deleted.")
+    def genFeatures(self):
+        self.outputdata = pd.DataFrame(columns = self.inputdata.columns.tolist()*self.aggregaterecords)
+        for i in range(0,int(len(self.inputdata)/self.aggregaterecords),1):
+            self.outputdata.loc[self.inputdata.index[i*self.aggregaterecords]] = self.inputdata[i*self.aggregaterecords:i*self.aggregaterecords+self.aggregaterecords][:].values.flatten()
+#-----------------------------------------------------------------------------#
 # Excel Dataframe Class
 class xlDataFrame:
     def __init__(self, xlParam):
